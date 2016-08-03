@@ -32,7 +32,7 @@ collection = client["apt"]
 # }
 
 
-url = "xasdasd"
+url = "xasdasdkt"
 area = "ssf"
 title = "jamess house"
 price = "$110000"
@@ -43,8 +43,23 @@ doc = { "url" => url, "area" => area, "info" => { "title" => title, "price" => p
 result = collection.insert_one(doc)
 result.n # returns 1, because one document was inserted
 
+# Insert only unqiue values based on key - "url"
+puts "-----------------------------"
+result = collection.update_one( {"url" => url}, doc, {upsert:true})
+puts "-----------------------------"
+
+
+
 # Dump info 
 puts collection.find( { url: url } ).first
+
+# Dump the entire collection
+puts "-----------------------------"
+collection.find().each do | rec |
+	puts rec
+end
+puts "-----------------------------"
+
 
 #
 # Extra examples
